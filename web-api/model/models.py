@@ -22,7 +22,7 @@ class User(db):
     resistance = Column(Integer)
     alcohol = Column(Float, default=0.00)
     trend = Column(Enum(trendEnum), default='EQU')
-    drinks = relationship(  "Drink")
+    drinks = relationship("Drink")
 
 class Group(db):
     __tablename__ = "group"
@@ -41,6 +41,7 @@ class Drink(db):
     aid = Column(Integer, ForeignKey("alcohol.id"))
     quantity = Column(Float)
     date = Column(DateTime)
+    user = relationship("User")
     alcohol = relationship("Alcohol")
 
 class Alcohol(db):

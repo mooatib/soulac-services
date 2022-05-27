@@ -13,7 +13,7 @@ def read_users(db: Session = Depends(get_db)):
     return users.get_users(db)
 
 @users_router.get("/{id}", response_model=user_schemas.UserInfo)
-def read_users(id : int, db: Session = Depends(get_db)):
+def read_user(id : int, db: Session = Depends(get_db)):
     return users.get_user(db)
 
 @users_router.post("/", response_model=user_schemas.UserCreate)

@@ -4,9 +4,19 @@ from model.models import trendEnum
 
 class UserDisplayBase(BaseModel):
     id: int
-    username: str
-    alcohol: float
+    img: Optional[str] = None
 
+class UserList(UserDisplayBase):
+    alcohol: float
+    username: str
+    trend: trendEnum
+
+    class Config:
+        orm_mode = True
+
+class UserInfo(UserList):
+    weight: int
+    resistance: int
 
 class UserCreate(BaseModel):
     username: str
@@ -30,13 +40,3 @@ class UserUpdate(BaseModel):
     class Config:
         orm_mode = True       
 
-class UserList(UserDisplayBase):
-    img: Optional[str] = None
-    trend: trendEnum
-
-    class Config:
-        orm_mode = True
-
-class UserInfo(UserList):
-    weight: int
-    resistance: int
