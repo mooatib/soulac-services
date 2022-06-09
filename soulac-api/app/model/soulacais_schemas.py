@@ -1,42 +1,51 @@
 from typing import Optional
 from pydantic import BaseModel
-from model.models import trendEnum
+from ..model.models import trendEnum
+from .user_schemas import User
 
-class UserDisplayBase(BaseModel):
+
+class SoulacaisBase(BaseModel):
     id: int
+    user: User
+    
+    class Config:
+        orm_mode = True
+
+
+class SoulacaisDisplayBase(SoulacaisBase):
     img: Optional[str] = None
 
-class UserList(UserDisplayBase):
+
+class SoulacaisList(SoulacaisDisplayBase):
     alcohol: float
-    username: str
     trend: trendEnum
 
     class Config:
         orm_mode = True
 
-class UserInfo(UserList):
+
+class SoulacaisInfo(SoulacaisList):
     weight: int
     resistance: int
 
-class UserCreate(BaseModel):
-    username: str
-    email: str
-    password: str
+
+class SoulacaisCreate(BaseModel):
+    user: User
     weight: int
     resistance: int
 
     class Config:
         orm_mode = True
 
-class UserUpdate(BaseModel):
-    id: int
-    username: Optional[str] = None
+
+class SoulacaisUpdate(BaseModel):
+    id: Optional[int] = None
+    user: Optional[User] = None
     img: Optional[str] = None
+    sex: Optional[bool] = None
     weight: Optional[int] = None
     resistance: Optional[int] = None
     alcohol: Optional[float] = None
     trend: Optional[trendEnum] = None
-
     class Config:
-        orm_mode = True       
-
+        orm_mode = True

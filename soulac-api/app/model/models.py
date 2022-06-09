@@ -1,7 +1,7 @@
 import enum
 from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String, DateTime, Enum
 from sqlalchemy.orm import relationship
-from database import db
+from ..database import db
 
 class trendEnum(enum.Enum):
     EQU = 'EQU'
@@ -16,13 +16,21 @@ class User(db):
     username = Column(String, unique=True)
     email = Column(String, unique=True)
     password = Column(String)
+    soulacais = relationship("Soulacais", back_populates="user")
+
+class Soulacais(db):
+    __tablename__ = "soulacais"
+
+    id = Column(Integer, primary_key=True, unique=True, index=True)
+    uid = Column(Integer, ForeignKey("user.id"))
     img = Column(String)
     sex = Column(Boolean)
     weight = Column(Integer)
     resistance = Column(Integer)
     alcohol = Column(Float, default=0.00)
     trend = Column(Enum(trendEnum), default='EQU')
-    drinks = relationship("Drink")
+    user = relationship("User", back_populates="soulacais", single_parent=True, cascade="save-update, delete, delete-orphan")
+    drinks = relationship("Drink", back_populates="soulacais")
 
 class Group(db):
     __tablename__ = "group"
@@ -37,12 +45,12 @@ class Drink(db):
     __tablename__ = "drink"
 
     id = Column(Integer, primary_key=True, unique=True, index=True)
-    uid = Column(Integer, ForeignKey("user.id"))
+    sid = Column(Integer, ForeignKey("soulacais.id"))
     aid = Column(Integer, ForeignKey("alcohol.id"))
     quantity = Column(Float)
     date = Column(DateTime)
-    user = relationship("User")
-    alcohol = relationship("Alcohol")
+    soulacais = relationship("Soulacais", back_populates="drinks")
+    alcohol = relationship("Alcohol", cascade="delete")
 
 class Alcohol(db):
     __tablename__ = "alcohol"

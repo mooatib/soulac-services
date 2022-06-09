@@ -1,8 +1,8 @@
 drop schema if exists soulacdb;
 create schema if not exists soulacdb;
-use
-    `soulacdb`;
+use soulacdb;
 drop table if exists user;
+drop table if exists soulacais;
 drop table if exists drink;
 drop table if exists alcohol;
 drop table if exists trophy;
@@ -15,13 +15,20 @@ CREATE TABLE user
     username   VARCHAR(50) NOT NULL UNIQUE,
     email      VARCHAR(100) NOT NULL UNIQUE,
     password   VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+CREATE TABLE soulacais
+(
+    id        INTEGER     NOT NULL UNIQUE AUTO_INCREMENT,
+    uid       INTEGER NOT NULL,
     img        VARCHAR(255),
     sex        BOOLEAN,
     weight     INTEGER     NOT NULL,
     resistance INTEGER     NOT NULL,
     alcohol    DOUBLE,
     trend      ENUM('EQU','DSC', 'ASC', 'BIGASC'),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (uid) REFERENCES user (id)
 );
 CREATE TABLE alcohol
 (
@@ -35,12 +42,12 @@ CREATE TABLE alcohol
 CREATE TABLE drink
 (
     id      INTEGER  NOT NULL UNIQUE AUTO_INCREMENT,
-    uid      INTEGER  NOT NULL,
+    sid      INTEGER  NOT NULL,
     aid      INTEGER  NOT NULL,
     quantity DOUBLE   NOT NULL,
     date     DATETIME NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (uid) REFERENCES user (id),
+    FOREIGN KEY (sid) REFERENCES soulacais (id),
     FOREIGN KEY (aid) REFERENCES alcohol (id)
 );
 CREATE TABLE trophy
@@ -53,10 +60,10 @@ CREATE TABLE trophy
 );
 CREATE TABLE usertrophy
 (
-    uid  INTEGER  NOT NULL,
+    sid  INTEGER  NOT NULL,
     tid  INTEGER  NOT NULL,
     date DATETIME NOT NULL,
-    PRIMARY KEY (uid, tid)
+    PRIMARY KEY (sid, tid)
 );
 CREATE TABLE `group`
 (
