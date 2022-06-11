@@ -7,7 +7,7 @@ from .users import get_users
 
 def get_soulacais(db: Session, id: int):
     stored_soulacais = (
-        db.query(models.Soulacais).filter(models.Soulacais.id == id).first()
+        db.query(models.Soulacais).filter(models.Soulacais.uid == id).first()
     )
     if not stored_soulacais:
         raise HTTPException(status_code=400, detail="This soulacais doesn't exist")

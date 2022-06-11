@@ -1,0 +1,3 @@
+[submodule "micro-auth"]
+	path = micro-auth
+	url = https://github.com/mooatib/micro-auth.git

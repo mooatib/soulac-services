@@ -20,7 +20,7 @@ CREATE TABLE user
 CREATE TABLE soulacais
 (
     id        INTEGER     NOT NULL UNIQUE AUTO_INCREMENT,
-    uid       INTEGER NOT NULL,
+    uid       INTEGER NOT NULL UNIQUE,
     img        VARCHAR(255),
     sex        BOOLEAN,
     weight     INTEGER     NOT NULL,

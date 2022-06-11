@@ -30,4 +30,4 @@ def update_drink(drinkSchema: drink_schemas.DrinkUpdate, db: Session = Depends(g
 
 @drinks_router.delete("/{id}", response_model=drink_schemas.DrinkInfo)
 def delete_drink(id : int, db: Session = Depends(get_db)):
-    return drinks.delete_drink(db, id)
+    return drinks.delete_drink(db, id)  
