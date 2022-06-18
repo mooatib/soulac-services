@@ -1,6 +1,6 @@
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .route import soulacais, drinks, alcohols
+from .route import soulacais, drinks, alcohols, groups
 from .service.auth import call_auth_api
 
 app = FastAPI(
@@ -21,3 +21,4 @@ app.add_middleware(
 app.include_router(soulacais.soulacais_router, dependencies=[Depends(call_auth_api)])
 app.include_router(drinks.drinks_router, dependencies=[Depends(call_auth_api)])
 app.include_router(alcohols.alcohols_router, dependencies=[Depends(call_auth_api)])
+app.include_router(groups.groups_router, dependencies=[Depends(call_auth_api)])
