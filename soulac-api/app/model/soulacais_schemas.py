@@ -1,13 +1,15 @@
-from typing import Optional
+from typing import List, Optional
 from pydantic import BaseModel
 from ..model.models import trendEnum
 from .user_schemas import User
+from .group_schemas import GroupBase
 
 
 class SoulacaisBase(BaseModel):
     id: int
     user: User
-    
+    role: Optional[str] = None
+
     class Config:
         orm_mode = True
 
@@ -27,6 +29,7 @@ class SoulacaisList(SoulacaisDisplayBase):
 class SoulacaisInfo(SoulacaisList):
     weight: int
     resistance: int
+    groups: List[GroupBase]
 
 
 class SoulacaisCreate(BaseModel):
@@ -47,5 +50,6 @@ class SoulacaisUpdate(BaseModel):
     resistance: Optional[int] = None
     alcohol: Optional[float] = None
     trend: Optional[trendEnum] = None
+
     class Config:
         orm_mode = True
