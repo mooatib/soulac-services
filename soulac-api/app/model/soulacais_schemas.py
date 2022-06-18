@@ -1,8 +1,16 @@
 from typing import List, Optional
 from pydantic import BaseModel
 from ..model.models import trendEnum
-from .user_schemas import User
+from .user_schemas import User, UserBase
 from .group_schemas import GroupBase
+
+
+class SoulacaisSimpleBase(BaseModel):
+    user: UserBase
+    img: Optional[str] = None
+
+    class Config:
+        orm_mode = True
 
 
 class SoulacaisBase(BaseModel):
