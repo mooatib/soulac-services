@@ -8,6 +8,7 @@ drop table if exists alcohol;
 drop table if exists trophy;
 drop table if exists user_trophy;
 drop table if exists `group`;
+drop table if exists soulacais_groups;
 
 CREATE TABLE user
 (
@@ -73,4 +74,11 @@ CREATE TABLE `group`
     description VARCHAR(255) NOT NULL,
     private     BOOLEAN      NOT NULL,
     PRIMARY KEY (id)
+);
+CREATE TABLE soulacais_groups
+(
+    soulacais_id  INTEGER  NOT NULL,
+    group_id  INTEGER  NOT NULL,
+    role VARCHAR(30) NOT NULL,
+    PRIMARY KEY (soulacais_id, group_id)
 );
