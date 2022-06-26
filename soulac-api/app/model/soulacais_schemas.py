@@ -15,7 +15,7 @@ class SoulacaisSimpleBase(BaseModel):
 
 class SoulacaisBase(BaseModel):
     id: int
-    user: User
+    user: UserBase
     role: Optional[str] = None
 
     class Config:

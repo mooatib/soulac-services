@@ -5,30 +5,30 @@ from .soulacais_schemas import SoulacaisBase, SoulacaisDisplayBase, SoulacaisSim
 from .alcohol_schemas import AlcoholDisplayBase
 
 
-class DrinkDisplayBase(BaseModel):
+class DrinkBase(BaseModel):
     id: int
+    quantity: float
+    date: datetime
+
+    class Config:
+        orm_mode = True
+
+
+class DrinkDisplayBase(DrinkBase):
     soulacais: SoulacaisDisplayBase
     alcohol: AlcoholDisplayBase
-    quantity: float
-    date: datetime
-
-    class Config:
-        orm_mode = True
 
 
-class DrinkList(BaseModel):
-    id: int
+class DrinkSimpleBase(DrinkBase):
     soulacais: SoulacaisSimpleBase
     alcohol: AlcoholDisplayBase
-    quantity: float
-    date: datetime
 
-    class Config:
-        orm_mode = True
+
+class UserDrinkSimpleBase(DrinkBase):
+    alcohol: AlcoholDisplayBase
 
 
 class DrinkCreate(BaseModel):
-    soulacais: SoulacaisBase
     alcohol: AlcoholDisplayBase
     quantity: float
     date: datetime
@@ -38,8 +38,6 @@ class DrinkCreate(BaseModel):
 
 
 class DrinkUpdate(BaseModel):
-    id: int
-    soulacais: SoulacaisBase
     alcohol: Optional[AlcoholDisplayBase] = None
     quantity: Optional[float] = None
     date: Optional[datetime] = None

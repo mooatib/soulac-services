@@ -9,12 +9,12 @@ models.db.metadata.create_all(bind=engine)
 drinks_router = APIRouter(prefix="/drinks", tags=["drinks"])
 
 
-@drinks_router.get("/", response_model=list[drink_schemas.DrinkDisplayBase])
+@drinks_router.get("/", response_model=list[drink_schemas.DrinkSimpleBase])
 def read_drinks(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return drinks.get_drinks(db, skip, limit)
 
 
-@drinks_router.get("/user/{id}", response_model=list[drink_schemas.DrinkList])
+@drinks_router.get("/user/{id}", response_model=list[drink_schemas.UserDrinkSimpleBase])
 def read_user_drinks(
     id: int,
     nbr: int,
@@ -32,6 +32,11 @@ def read_user_drinks(
 @drinks_router.get("/{id}", response_model=drink_schemas.DrinkDisplayBase)
 def read_drink(id: int, db: Session = Depends(get_db)):
     return drinks.get_drink(db, id)
+
+
+@drinks_router.get("/last/{id}", response_model=drink_schemas.UserDrinkSimpleBase)
+def read_last_user_drink(id: int, db: Session = Depends(get_db)):
+    return drinks.get_last_user_drink(db, id)
 
 
 @drinks_router.post("/", response_model=drink_schemas.DrinkCreate)

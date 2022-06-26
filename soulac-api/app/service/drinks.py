@@ -30,6 +30,15 @@ def get_user_drinks(db: Session, id: int, page: page_schemas.Page):
     )
 
 
+def get_last_user_drink(db: Session, id: int):
+    return (
+        db.query(models.Drink)
+        .order_by(models.Drink.date.desc())
+        .filter(models.Drink.sid == id)
+        .first()
+    )
+
+
 def create_drink(db: Session, drinkSchema: drink_schemas.DrinkCreate):
     drink = models.Drink(
         sid=drinkSchema.soulacais.id,
