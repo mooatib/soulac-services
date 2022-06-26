@@ -1,16 +1,5 @@
 from typing import List, Optional
 from pydantic import BaseModel
-from .user_schemas import User
-
-
-class SoulacaisBase(BaseModel):
-    id: int
-    user: User
-    img: Optional[str] = None
-    role: Optional[str] = None
-
-    class Config:
-        orm_mode = True
 
 
 class GroupBase(BaseModel):
@@ -25,8 +14,6 @@ class GroupBase(BaseModel):
 class GroupInfo(GroupBase):
     description: Optional[str] = None
     private: bool
-    role: Optional[str] = None
-    soulacais: List[SoulacaisBase]
 
 
 class GroupCreate(GroupBase):

@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from requests import Session
 
-from ..model import models, group_schemas
+from ..model import models, group_schemas, page_schemas
 
 
 def get_group(db: Session, id: int):
@@ -9,6 +9,36 @@ def get_group(db: Session, id: int):
     if not stored_group:
         raise HTTPException(status_code=400, detail="This group doesn't exist")
     return stored_group
+
+
+def get_group_users(db: Session, id: int, page: page_schemas.Page):
+    skip = page.nbr * page.limit
+    stored_group_users = (
+        db.query(models.Soulacais)
+        .filter(models.Soulacais.groups.any(id=id))
+        .offset(skip)
+        .limit(page.limit)
+        .all()
+    )
+    if not stored_group_users:
+        raise HTTPException(status_code=400, detail="This group doesn't exist")
+    print(stored_group_users)
+    return stored_group_users
+
+
+def get_group_drinks(db: Session, id: int, page: page_schemas.Page):
+    skip = page.nbr * page.limit
+    stored_group_drinks = (
+        db.query(models.Drink)
+        .filter(models.Drink.sid == id)
+        .offset(skip)
+        .limit(page.limit)
+        .all()
+    )
+
+    if not stored_group_drinks:
+        raise HTTPException(status_code=400, detail="This group doesn't exist")
+    return stored_group_drinks
 
 
 def get_groups(db: Session, filter: str):
