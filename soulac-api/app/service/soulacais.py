@@ -15,6 +15,14 @@ def get_soulacais(db: Session, id: int):
     return stored_soulacais
 
 
+def get_soulacais_groups(db: Session, id: int):
+    get_soulacais(db, id)
+    stored_soulacais_groups = (
+        db.query(models.Group).filter(models.Group.soulacais.any(id=id)).all()
+    )
+    return stored_soulacais_groups
+
+
 def get_all_soulacais(db: Session):
     return db.query(models.Soulacais).all()
 

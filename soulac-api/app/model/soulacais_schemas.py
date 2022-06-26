@@ -16,7 +16,6 @@ class SoulacaisSimpleBase(BaseModel):
 class SoulacaisBase(BaseModel):
     id: int
     user: UserBase
-    role: Optional[str] = None
 
     class Config:
         orm_mode = True

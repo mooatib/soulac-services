@@ -6,6 +6,7 @@ class GroupBase(BaseModel):
     id: int
     name: str
     img: Optional[str] = None
+    private: bool
 
     class Config:
         orm_mode = True
@@ -13,7 +14,6 @@ class GroupBase(BaseModel):
 
 class GroupInfo(GroupBase):
     description: Optional[str] = None
-    private: bool
 
 
 class GroupCreate(GroupBase):

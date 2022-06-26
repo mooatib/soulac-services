@@ -1,7 +1,7 @@
 from http.client import HTTPException
 from ..database import engine, get_db
 from fastapi import APIRouter, Depends
-from ..model import models, soulacais_schemas
+from ..model import models, soulacais_schemas, group_schemas
 from ..service import soulacais
 from sqlalchemy.orm import Session
 
@@ -18,6 +18,11 @@ def read_soulacais(db: Session = Depends(get_db)):
 @soulacais_router.get("/{id}", response_model=soulacais_schemas.SoulacaisInfo)
 def read_soulacais(id: int, db: Session = Depends(get_db)):
     return soulacais.get_soulacais(db, id)
+
+
+@soulacais_router.get("/{id}/groups", response_model=list[group_schemas.GroupBase])
+def read_soulacais_groups(id: int, db: Session = Depends(get_db)):
+    return soulacais.get_soulacais_groups(db, id)
 
 
 @soulacais_router.post("/", response_model=soulacais_schemas.SoulacaisCreate)

@@ -2,8 +2,8 @@ insert into user (id, username, email, password) values (1, 'dib','dib@gmail.com
 insert into user (id, username, email, password) values (2, 'tete','tete@gmail.com', '$2b$12$veVnC5I83mQ0q73s9B3W9erJbMYDd.Z89UvT90bOV8gGhLsrLB0OC');
 insert into soulacais (id, uid, img, sex, weight, resistance, alcohol, trend) values (1, 1, 'https://img.freepik.com/vecteurs-libre/personnage-avatar-jeune-homme_24877-36969.jpg', 1, 62, 2, 1.0, 'ASC');
 insert into soulacais (id, uid, img, sex, weight, resistance, alcohol, trend) values (2, 2, 'https://img.freepik.com/vecteurs-libre/personnage-avatar-jeune-homme_24877-36969.jpg', 1, 62, 2, 1.0, 'ASC');
-insert into `group` (id, name, description, private) values (1, 'Soulac Official', 'THE BEST PLACE TO BE', 1);
-insert into `group` (id, name, description, private) values (2, 'Amiens', 'Amiens gang', 1);
+insert into `group` (id, name, img, description, private) values (1, 'Soulac Official', 'https://www.iconpacks.net/icons/1/free-user-group-icon-296-thumb.png', 'THE BEST PLACE TO BE', 1);
+insert into `group` (id, name, img, description, private) values (2, 'Amiens', 'https://www.iconpacks.net/icons/1/free-user-group-icon-296-thumb.png', 'Amiens gang', 1);
 insert into soulacais_groups (soulacais_id, group_id, role) values (1, 1, 'admin');
 insert into soulacais_groups (soulacais_id, group_id, role) values (2, 2, 'admin');
 insert into alcohol(id, name, type, percentage, hidden) values (1, 'Chouffe', 0, 8.0, 0);
